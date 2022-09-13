@@ -40,6 +40,6 @@ save(wbs,file="wbs.Rdata")
 ```
 
 ```{r}
-wbs1_2020_plot1<-wbs[wbs$Date>=as.POSIXct("01/01/2020",format="%m/%d/%Y") & wbs$site=="wbs1" &wbs$plot==1,]
-wbs1_2020_plot1
+wbs1_2019_plot1<-wbs[wbs$Date>=as.POSIXct("01/01/2019",format="%m/%d/%Y") &wbs$Date<as.POSIXct("01/01/2021",format="%m/%d/%Y") & wbs$site=="wbs1" &wbs$plot==1,]
+wbs1_2019_plot1
 ```
