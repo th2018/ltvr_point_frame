@@ -1,0 +1,33 @@
+---
+title: "Untitled"
+author: "Tao Huang"
+date: "9/13/2022"
+output: html_document
+---
+
+```{r}
+library("dplyr")
+```
+
+```{r}
+pf<-read.csv("/Users/owner/Downloads/ltvr_point_frame-main/export.csv")
+pf$growthform_ct<-1
+pf<-pf[,c("site","Date","plot","growthform","growthform_ct")]
+pf
+```
+
+```{r}
+pf_count<-pf %>%    
+  group_by(site,Date,plot,growthform) %>%
+   summarise(count=n())
+
+pf_plot<-pf %>%    
+  group_by(site,Date,plot) %>%
+   summarise(total_count=n())
+
+pf_all<-merge(pf_count,pf_plot,by=c("site","Date","plot") )
+pf_all$fraction<-pf_all$count/pf_all$total_count
+pf_all
+#pf %>% group_by(site) %>%tally()
+```
+
