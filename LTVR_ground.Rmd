@@ -31,3 +31,15 @@ pf_all
 #pf %>% group_by(site) %>%tally()
 ```
 
+```{r}
+wbs<-pf_all[grepl("wbs", pf_all$site),]
+table(wbs$site)
+wbs$Date<- as.POSIXct(wbs$Date, format="%m/%d/%Y")
+wbs
+save(wbs,file="wbs.Rdata")
+```
+
+```{r}
+wbs1_2020_plot1<-wbs[wbs$Date>=as.POSIXct("01/01/2020",format="%m/%d/%Y") & wbs$site=="wbs1" &wbs$plot==1,]
+wbs1_2020_plot1
+```
