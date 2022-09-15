@@ -1,0 +1,89 @@
+---
+title: "Untitled"
+author: "Tao Huang"
+date: "9/13/2022"
+output: html_document
+---
+
+```{r}
+library("dplyr")
+library("foreign")
+library(ggplot2)
+```
+
+```{r}
+pf<-read.csv("C:/Users/taohuang/Desktop/rcew-ltvr-point-frame-export/export.csv")
+pf$growthform_ct<-1
+#pf<-pf[,c("site","Date","plot","growthform","growthform_ct")]
+pf
+```
+
+```{r}
+pf_count<-pf %>%    
+  group_by(site,Date,plot,growthform) %>%
+   summarise(count=n())
+
+pf_plot<-pf %>%    
+  group_by(site,Date,plot) %>%
+   summarise(total_count=n())
+
+pf_all<-merge(pf_count,pf_plot,by=c("site","Date","plot") )
+pf_all$fraction<-pf_all$count/pf_all$total_count
+pf_all
+#pf %>% group_by(site) %>%tally()
+```
+
+```{r}
+wbs<-pf_all[grepl("wbs", pf_all$site),]
+table(wbs$site)
+wbs$Date<- as.POSIXct(wbs$Date, format="%m/%d/%Y")
+wbs
+save(wbs,file="wbs.Rdata")
+```
+
+```{r}
+load("wbs.Rdata")
+```
+
+```{r}
+wbs1_2019<-wbs[wbs$Date>=as.POSIXct("01/01/2019",format="%m/%d/%Y") &wbs$Date<as.POSIXct("01/01/2021",format="%m/%d/%Y") & wbs$site=="wbs1" ,]
+summary(wbs1_2019)
+wbs1_2019[wbs1_2019$fraction>0.5,]
+```
+
+
+```{r}
+wbs1_2019_plot1<-wbs[wbs$Date>=as.POSIXct("01/01/2019",format="%m/%d/%Y") &wbs$Date<as.POSIXct("01/01/2021",format="%m/%d/%Y") & wbs$site=="wbs1" &wbs$plot==1,]
+wbs1_2019_plot1
+```
+
+```{r}
+wbs1_2019_plot10<-wbs[wbs$Date>=as.POSIXct("01/01/2019",format="%m/%d/%Y") &wbs$Date<as.POSIXct("01/01/2021",format="%m/%d/%Y") & wbs$site=="wbs1" &wbs$plot==10,]
+wbs1_2019_plot10
+```
+
+rangeland_annual_herbaceous: 15
+rangeland_bare_ground: 33
+rangeland_herbaceous: 29
+rangeland_litter: 26
+rangeland_non_sagebrush_shrub: 0
+rangeland_perennial_herbaceous: 14
+rangeland_sagebrush: 12
+rangeland_shrub: 12
+
+```{r}
+rcmap_ltvr<-data.frame( Cover=c("bare_ground+litter","herbaceous","shrub" ) ,RCMAP_Fraction=c(0.59,0.29,0.12)  , LTVR_Fraction=c(0.584905660,0.006289308+0.396226415,0.012578616)     )
+rcmap_ltvr
+ggplot( rcmap_ltvr[,c(1,2)], aes(x="", y=RCMAP_Fraction, fill=Cover))+
+geom_bar(width = 1, stat = "identity")
+ggplot( rcmap_ltvr[,c(1,3)], aes(x="", y=LTVR_Fraction, fill=Cover))+
+geom_bar(width = 1, stat = "identity")
+```
+
+
+```{r}
+rtk<-read.dbf("C:/Users/taohuang/Downloads/LTVR_LAI_RTK-corrected/LTVM_PointFrame_wDirection.dbf")
+rtk_wbsveg1<-rtk[rtk$NWRC_Ref=="wbsveg1",]
+rtk_wbsveg1
+```
+
