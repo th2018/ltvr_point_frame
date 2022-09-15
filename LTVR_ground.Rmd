@@ -13,11 +13,21 @@ library("foreign")
 ```{r}
 pf<-read.csv("/Users/owner/Downloads/ltvr_point_frame-main/export.csv")
 pf$growthform_ct<-1
-pf<-pf[,c("site","Date","plot","growthform","growthform_ct")]
-pf
+
+
+pf$Date<-as.POSIXct(pf$Date,format="%m/%d/%Y")
 ```
 
 ```{r}
+pf_wbs1_2019_plot10<-pf[pf$Date>=as.POSIXct("01/01/2019",format="%m/%d/%Y") & pf$Date<as.POSIXct("01/01/2021",format="%m/%d/%Y") & pf$site=="wbs1" & pf$plot==10,]
+pf_wbs1_2019_plot10
+pf_wbs1_2019_plot10[pf_wbs1_2019_plot10$row==1,]
+```
+
+
+```{r}
+pf<-pf[,c("site","Date","plot","growthform","growthform_ct")]
+
 pf_count<-pf %>%    
   group_by(site,Date,plot,growthform) %>%
    summarise(count=n())
@@ -37,7 +47,7 @@ wbs<-pf_all[grepl("wbs", pf_all$site),]
 table(wbs$site)
 wbs$Date<- as.POSIXct(wbs$Date, format="%m/%d/%Y")
 wbs
-save(wbs,file="wbs.Rdata")
+#save(wbs,file="wbs.Rdata")
 ```
 
 ```{r}
