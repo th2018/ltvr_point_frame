@@ -72,12 +72,13 @@ rangeland_sagebrush: 12
 rangeland_shrub: 12
 
 ```{r}
-rcmap_ltvr<-data.frame( Cover=c("bare_ground+litter","herbaceous","shrub" ) ,RCMAP_Fraction=c(0.59,0.29,0.12)  , LTVR_Fraction=c(0.584905660,0.006289308+0.396226415,0.012578616)     )
+rcmap_ltvr<-data.frame( Cover=c("bare_ground+litter","herbaceous","shrub" ) ,RCMAP_Fraction=c(0.59,0.29,0.12)  , Point_Frame_Fraction=c(0.584905660,0.006289308+0.396226415,0.012578616)     )
 rcmap_ltvr
 ggplot( rcmap_ltvr[,c(1,2)], aes(x="", y=RCMAP_Fraction, fill=Cover))+
-geom_bar(width = 1, stat = "identity")
-ggplot( rcmap_ltvr[,c(1,3)], aes(x="", y=LTVR_Fraction, fill=Cover))+
-geom_bar(width = 1, stat = "identity")
+geom_bar(width = 1, stat = "identity")+ theme(text = element_text(size = 21))
+
+ggplot( rcmap_ltvr[,c(1,3)], aes(x="", y= Point_Frame_Fraction, fill=Cover))+
+geom_bar(width = 1, stat = "identity")+ theme(text = element_text(size = 21))
 ```
 
 

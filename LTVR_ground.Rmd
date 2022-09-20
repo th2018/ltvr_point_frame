@@ -11,10 +11,9 @@ library("foreign")
 ```
 
 ```{r}
-pf<-read.csv("/Users/owner/Downloads/ltvr_point_frame-main/export.csv")
+pf<-read.csv("C:/Users/taohuang/Desktop/rcew-ltvr-point-frame-export/export.csv")
 pf$growthform_ct<-1
-
-
+pf$field_species_ct<-1
 pf$Date<-as.POSIXct(pf$Date,format="%m/%d/%Y")
 ```
 
@@ -24,7 +23,26 @@ pf_wbs1_2019_plot10
 pf_wbs1_2019_plot10[pf_wbs1_2019_plot10$row==1,]
 ```
 
+field_species
+```{r}
+pf<-pf[,c("site","Date","plot","field_species","field_species_ct")]
 
+pf_count<-pf %>%    
+  group_by(site,Date,plot,field_species) %>%
+   summarise(count=n())
+
+pf_plot<-pf %>%    
+  group_by(site,Date,plot) %>%
+   summarise(total_count=n())
+
+pf_all<-merge(pf_count,pf_plot,by=c("site","Date","plot") )
+pf_all$fraction<-pf_all$count/pf_all$total_count
+pf_all
+#pf %>% group_by(site) %>%tally()
+```
+
+
+growthform
 ```{r}
 pf<-pf[,c("site","Date","plot","growthform","growthform_ct")]
 
@@ -51,8 +69,22 @@ wbs
 ```
 
 ```{r}
-wbs1_2019_plot1<-wbs[wbs$Date>=as.POSIXct("01/01/2019",format="%m/%d/%Y") &wbs$Date<as.POSIXct("01/01/2021",format="%m/%d/%Y") & wbs$site=="wbs1" &wbs$plot==1,]
-wbs1_2019_plot1
+wbs1_2019_plot10<-wbs[wbs$Date>=as.POSIXct("01/01/2019",format="%m/%d/%Y") &wbs$Date<as.POSIXct("01/01/2021",format="%m/%d/%Y") & wbs$site=="wbs1" &wbs$plot==10,]
+wbs1_2019_plot10
+
+lookup<-data.frame(field_species=c("sdw","ssdw","s","artrw8","drve2","gl","pose","w","pssp6","r","sl"),description=c("shrub dead wood; >.25 inch or .5cm","standing shrub dead wood; >.25 inch or .5cm","soil; <.25 inch or .5cm","artrw8","drve2","graminoid litter","pose","wood > .25 inch or .5cm","pssp6","rock; >.25 inch or .5cm","shrub dead wood; <.25 inch or .5cm"))
+lookup
+
+#field_species
+#fl	forb litter
+#m	moss
+#d	dung
+
+#POSE (small native bunchgrass)
+#Poa bluegrass
+
+wbs1_2019_plot10_sp<-merge(wbs1_2019_plot10,lookup,by.x="field_species",by.y="field_species")
+wbs1_2019_plot10_sp
 ```
 
 ```{r}
