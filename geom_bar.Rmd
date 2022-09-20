@@ -1,0 +1,48 @@
+---
+title: "Untitled"
+author: "Tao"
+date: "9/19/2022"
+output: html_document
+---
+
+```{r}
+library("ggplot2")
+```
+
+```{r}
+ggplot(mpg[,c("class","drv")]) +
+    geom_bar(aes(x = class, fill = drv))
+```
+
+```{r}
+mpg[,c("class","drv")]
+```
+
+```{r}
+diamonds %>% 
+  group_by(clarity, cut) %>% 
+  summarize(m = mean(price)) %>% 
+  ggplot(aes(x = clarity, y = m, group = cut, fill = cut)) +
+  geom_bar(stat = "identity") 
+```
+
+```{r}
+diamonds %>% 
+  group_by(clarity, cut) %>% 
+  summarize(m = mean(price))
+
+```
+
+```{r}
+df<-data.frame(Data=c("Drone","NLCD RCMAP"),Class=c("Shrub","Shrub","Herbaceous","Herbaceous","Bare ground","Bare ground","Litter","Litter"),Fractional_cover=c( 15,12,68,29,5,33,7,26))
+df
+```
+
+```{r}
+
+df %>%
+ggplot(aes(x = Data, y = Fractional_cover, group = Class, fill = Class)) +
+  geom_bar(stat = "identity") +
+  ylab("Fractional cover (%)")
+```
+
