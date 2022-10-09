@@ -1,29 +1,26 @@
 ---
-title: "Untitled"
+title: "To estimate the growthform within a point frame"
 author: "Tao Huang"
 date: "9/13/2022"
 output: html_document
 ---
 
+# Load packages
 ```{r}
 library("dplyr")
 library("foreign")
 ```
 
+# read the data
 ```{r}
 pf<-read.csv("C:/Users/taohuang/Desktop/rcew-ltvr-point-frame-export/export.csv")
 pf$growthform_ct<-1
 pf$field_species_ct<-1
 pf$Date<-as.POSIXct(pf$Date,format="%m/%d/%Y")
-```
-
-```{r}
-grass<-pf[pf$growthform=="grass",]
-grass
 pf
 ```
 
-
+# Subset to wbs1 2019 plot 10
 ```{r}
 pf_wbs1_2019_plot10<-pf[pf$Date>=as.POSIXct("01/01/2019",format="%m/%d/%Y") & pf$Date<as.POSIXct("01/01/2021",format="%m/%d/%Y") & pf$site=="wbs1" & pf$plot==10,]
 pf_wbs1_2019_plot10
@@ -31,15 +28,15 @@ pf_wbs1_2019_plot10[pf_wbs1_2019_plot10$row==1,]
 table(pf_wbs1_2019_plot10$hit)
 ```
 
-field_species
+# count field_species
 ```{r}
-pf<-pf[,c("site","Date","plot","field_species","field_species_ct")]
+pf_field_species<-pf[,c("site","Date","plot","field_species","field_species_ct")]
 
-pf_count<-pf %>%    
+pf_count<-pf_field_species %>%    
   group_by(site,Date,plot,field_species) %>%
    summarise(count=n())
 
-pf_plot<-pf %>%    
+pf_plot<-pf_field_species %>%    
   group_by(site,Date,plot) %>%
    summarise(total_count=n())
 
@@ -49,8 +46,7 @@ pf_all
 #pf %>% group_by(site) %>%tally()
 ```
 
-
-growthform
+# count growthform
 ```{r}
 pf<-pf[,c("site","Date","plot","growthform","growthform_ct")]
 
