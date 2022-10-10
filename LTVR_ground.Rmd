@@ -26,6 +26,8 @@ pf_wbs1_2019_plot10<-pf[pf$Date>=as.POSIXct("01/01/2019",format="%m/%d/%Y") & pf
 pf_wbs1_2019_plot10
 pf_wbs1_2019_plot10[pf_wbs1_2019_plot10$row==1,]
 table(pf_wbs1_2019_plot10$hit)
+table(pf_wbs1_2019_plot10$growthform)
+
 ```
 
 # count field_species
