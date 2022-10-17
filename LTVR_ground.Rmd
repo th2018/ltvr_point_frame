@@ -24,11 +24,31 @@ pf
 ```{r}
 pf_wbs1_2019_plot10<-pf[pf$Date>=as.POSIXct("01/01/2019",format="%m/%d/%Y") & pf$Date<as.POSIXct("01/01/2021",format="%m/%d/%Y") & pf$site=="wbs1" & pf$plot==10,]
 pf_wbs1_2019_plot10
-pf_wbs1_2019_plot10[pf_wbs1_2019_plot10$row==1,]
+pf_wbs1_2019_plot10[pf_wbs1_2019_plot10$row==5,]
 table(pf_wbs1_2019_plot10$hit)
 table(pf_wbs1_2019_plot10$growthform)
+write.csv(pf_wbs1_2019_plot10[pf_wbs1_2019_plot10$hit==1,],file="pf_wbs1_2019_plot10_hit1.csv")
+```
+
+# Subset to wbs1 2016 plot 10
+```{r}
+pf_wbs1_2016_plot10<-pf[pf$Date>=as.POSIXct("01/01/2016",format="%m/%d/%Y") & pf$Date<as.POSIXct("01/01/2017",format="%m/%d/%Y") & pf$site=="wbs1" & pf$plot==10,]
+pf_wbs1_2016_plot10
+pf_wbs1_2016_plot10[pf_wbs1_2016_plot10$row==1,]
+table(pf_wbs1_2016_plot10$hit)
+table(pf_wbs1_2016_plot10$growthform)
+```
+
+# Subset to wbs1 2018 plot 10
+```{r}
+pf_wbs1_2018_plot10<-pf[pf$Date>=as.POSIXct("01/01/2018",format="%m/%d/%Y") & pf$Date<as.POSIXct("01/01/2019",format="%m/%d/%Y") & pf$site=="wbs1" & pf$plot==10,]
+pf_wbs1_2018_plot10
+pf_wbs1_2018_plot10[pf_wbs1_2018_plot10$row==1,]
+table(pf_wbs1_2018_plot10$hit)
+table(pf_wbs1_2018_plot10$growthform)
 
 ```
+
 
 # count field_species
 ```{r}
