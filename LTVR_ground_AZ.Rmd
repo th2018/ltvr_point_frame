@@ -67,11 +67,38 @@ wbs3_all_2019<-wbs3_all[wbs3_all$Date>=as.POSIXct("01/01/2019",format="%m/%d/%Y"
 wbs3_all_2019[wbs3_all_2019$field_species=="m",]
 wbs3_all_2019_plot23<-wbs3_all[wbs3_all$Date>=as.POSIXct("01/01/2019",format="%m/%d/%Y") & wbs3_all$Date<as.POSIXct("01/01/2021",format="%m/%d/%Y") & wbs3_all$plot==23,]
 wbs3_all_2019_plot23
-
+wbs3_all_2019_plot31<-wbs3_all[wbs3_all$Date>=as.POSIXct("01/01/2019",format="%m/%d/%Y") & wbs3_all$Date<as.POSIXct("01/01/2021",format="%m/%d/%Y") & wbs3_all$plot==31,]
+wbs3_all_2019_plot31
+wbs3_all_2019_plot15<-wbs3_all[wbs3_all$Date>=as.POSIXct("01/01/2019",format="%m/%d/%Y") & wbs3_all$Date<as.POSIXct("01/01/2021",format="%m/%d/%Y") & wbs3_all$plot==15,]
+wbs3_all_2019_plot15
 ```
 
 
+```{r}
 
+
+lookup<-data.frame(field_species=c("sdw","ssdw","s","artrw8","drve2","gl","pose","w","pssp6","r","sl","m","fl","phlo2", "ascu5", "elel5"),description=c("shrub dead wood; >.25 inch or .5cm","standing shrub dead wood; >.25 inch or .5cm","soil; <.25 inch or .5cm","Wyoming big sagebrush","drve2","graminoid litter","pose","wood > .25 inch or .5cm","pssp6","rock; >.25 inch or .5cm","shrub dead wood; <.25 inch or .5cm","moss","forb litter","Phlox longifolia", "Astragalus cusickii", "Elymus elymoides"))
+lookup
+
+#https://plantsorig.sc.egov.usda.gov/java/charProfile?symbol=ARTRW8
+#field_species
+#d	dung
+#POSE (small native bunchgrass)
+#Poa bluegrass
+
+wbs3_all_2019_plot15_sp<-merge( wbs3_all_2019_plot15,lookup,by.x="field_species",by.y="field_species")
+wbs3_all_2019_plot15_sp
+```
+
+```{r}
+rhem_lookup<-data.frame( field_species =c("artrw8","elel5","gl","m","phlo2",   "pose", "s","sl", "ssdw"),RHEM=c("Shrubs","Bunch Grass","Litter Cover %","Biological Crusts Cover","Forbs/Annuals", "Bunch Grass", "Bare", "Shrubs" , "Shrubs"))
+rhem_lookup
+```
+
+```{r}
+wbs3_all_2019_plot15_sp_rhem<-merge( wbs3_all_2019_plot15_sp,rhem_lookup,by.x="field_species",by.y="field_species")
+wbs3_all_2019_plot15_sp_rhem
+```
 
 
 
@@ -149,27 +176,6 @@ pf_all<-merge(pf_count,pf_plot,by=c("site","Date","plot") )
 pf_all$fraction<-pf_all$count/pf_all$total_count
 pf_all
 #pf %>% group_by(site) %>%tally()
-```
-
-```{r}
-wbs1_2019_plot10<-wbs[wbs$Date>=as.POSIXct("01/01/2019",format="%m/%d/%Y") &wbs$Date<as.POSIXct("01/01/2021",format="%m/%d/%Y") & wbs$site=="wbs1" &wbs$plot==10,]
-wbs1_2019_plot10
-
-lookup<-data.frame(field_species=c("sdw","ssdw","s","artrw8","drve2","gl","pose","w","pssp6","r","sl","m","fl"),description=c("shrub dead wood; >.25 inch or .5cm","standing shrub dead wood; >.25 inch or .5cm","soil; <.25 inch or .5cm","Wyoming big sagebrush","drve2","graminoid litter","pose","wood > .25 inch or .5cm","pssp6","rock; >.25 inch or .5cm","shrub dead wood; <.25 inch or .5cm","moss","forb litter"))
-lookup
-
-#https://plantsorig.sc.egov.usda.gov/java/charProfile?symbol=ARTRW8
-#field_species
-
-
-
-#d	dung
-
-#POSE (small native bunchgrass)
-#Poa bluegrass
-
-wbs1_2019_plot10_sp<-merge(wbs1_2019_plot10,lookup,by.x="field_species",by.y="field_species")
-wbs1_2019_plot10_sp
 ```
 
 ```{r}
