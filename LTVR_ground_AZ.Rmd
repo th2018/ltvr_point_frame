@@ -1,0 +1,180 @@
+---
+title: "To estimate the growthform within a point frame"
+author: "Tao Huang"
+date: "9/13/2022"
+output: html_document
+---
+
+# Load packages
+```{r}
+library("dplyr")
+library("foreign")
+```
+
+# read the data
+```{r}
+pf<-read.csv("C:/Users/taohuang/Desktop/rcew-ltvr-point-frame-export/export.csv")
+pf$growthform_ct<-1
+pf$field_species_ct<-1
+pf$Date<-as.POSIXct(pf$Date,format="%m/%d/%Y")
+pf
+```
+
+```{r}
+wbs<-pf[grepl("wbs", pf$site),]
+table(wbs$site)
+wbs$Date<- as.POSIXct(wbs$Date, format="%m/%d/%Y")
+wbs
+#save(wbs,file="wbs.Rdata")
+```
+
+# wbs plots include rock and moss
+```{r}
+wbs_r_m<-wbs[wbs$field_species %in% c("m","r"),]
+dim(wbs_r_m)
+
+wbs2<-wbs[wbs$site=="wbs2",]
+wbs2_r_m<-wbs2[wbs2$field_species %in% c("m","r"),]
+dim(wbs2_r_m)
+
+wbs3<-wbs[wbs$site=="wbs3",]
+wbs3_r_m<-wbs3[wbs3$field_species %in% c("m","r"),]
+dim(wbs3_r_m)
+```
+
+
+# count field_species
+```{r}
+wbs3_field_species<-wbs3[,c("site","Date","plot","field_species","field_species_ct")]
+
+wbs3_count<-wbs3_field_species %>%    
+  group_by(site,Date,plot,field_species) %>%
+   summarise(count=n())
+
+wbs3_plot<-wbs3_field_species %>%    
+  group_by(site,Date,plot) %>%
+   summarise(total_count=n())
+
+wbs3_all<-merge(wbs3_count,wbs3_plot,by=c("site","Date","plot") )
+wbs3_all$fraction<-wbs3_all$count/wbs3_all$total_count
+wbs3_all
+#pf %>% group_by(site) %>%tally()
+```
+
+# wbs3_all
+```{r}
+wbs3_all_2019<-wbs3_all[wbs3_all$Date>=as.POSIXct("01/01/2019",format="%m/%d/%Y") & wbs3_all$Date<as.POSIXct("01/01/2021",format="%m/%d/%Y"),]
+wbs3_all_2019[wbs3_all_2019$field_species=="m",]
+wbs3_all_2019_plot23<-wbs3_all[wbs3_all$Date>=as.POSIXct("01/01/2019",format="%m/%d/%Y") & wbs3_all$Date<as.POSIXct("01/01/2021",format="%m/%d/%Y") & wbs3_all$plot==23,]
+wbs3_all_2019_plot23
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Subset to wbs1 2019 plot 10
+```{r}
+pf_wbs1_2019_plot10<-pf[pf$Date>=as.POSIXct("01/01/2019",format="%m/%d/%Y") & pf$Date<as.POSIXct("01/01/2021",format="%m/%d/%Y") & pf$site=="wbs1" & pf$plot==10,]
+pf_wbs1_2019_plot10
+pf_wbs1_2019_plot10[pf_wbs1_2019_plot10$row==5,]
+table(pf_wbs1_2019_plot10$hit)
+table(pf_wbs1_2019_plot10$growthform)
+write.csv(pf_wbs1_2019_plot10[pf_wbs1_2019_plot10$hit==1,],file="pf_wbs1_2019_plot10_hit1.csv")
+```
+
+# Subset to wbs1 2016 plot 10
+```{r}
+pf_wbs1_2016_plot10<-pf[pf$Date>=as.POSIXct("01/01/2016",format="%m/%d/%Y") & pf$Date<as.POSIXct("01/01/2017",format="%m/%d/%Y") & pf$site=="wbs1" & pf$plot==10,]
+pf_wbs1_2016_plot10
+pf_wbs1_2016_plot10[pf_wbs1_2016_plot10$row==1,]
+table(pf_wbs1_2016_plot10$hit)
+table(pf_wbs1_2016_plot10$growthform)
+```
+
+# Subset to wbs1 2018 plot 10
+```{r}
+pf_wbs1_2018_plot10<-pf[pf$Date>=as.POSIXct("01/01/2018",format="%m/%d/%Y") & pf$Date<as.POSIXct("01/01/2019",format="%m/%d/%Y") & pf$site=="wbs1" & pf$plot==10,]
+pf_wbs1_2018_plot10
+pf_wbs1_2018_plot10[pf_wbs1_2018_plot10$row==1,]
+table(pf_wbs1_2018_plot10$hit)
+table(pf_wbs1_2018_plot10$growthform)
+
+```
+
+
+# count field_species
+```{r}
+pf_field_species<-pf[,c("site","Date","plot","field_species","field_species_ct")]
+
+pf_count<-pf_field_species %>%    
+  group_by(site,Date,plot,field_species) %>%
+   summarise(count=n())
+
+pf_plot<-pf_field_species %>%    
+  group_by(site,Date,plot) %>%
+   summarise(total_count=n())
+
+pf_all<-merge(pf_count,pf_plot,by=c("site","Date","plot") )
+pf_all$fraction<-pf_all$count/pf_all$total_count
+pf_all
+#pf %>% group_by(site) %>%tally()
+```
+
+# count growthform
+```{r}
+pf<-pf[,c("site","Date","plot","growthform","growthform_ct")]
+
+pf_count<-pf %>%    
+  group_by(site,Date,plot,growthform) %>%
+   summarise(count=n())
+
+pf_plot<-pf %>%    
+  group_by(site,Date,plot) %>%
+   summarise(total_count=n())
+
+pf_all<-merge(pf_count,pf_plot,by=c("site","Date","plot") )
+pf_all$fraction<-pf_all$count/pf_all$total_count
+pf_all
+#pf %>% group_by(site) %>%tally()
+```
+
+```{r}
+wbs1_2019_plot10<-wbs[wbs$Date>=as.POSIXct("01/01/2019",format="%m/%d/%Y") &wbs$Date<as.POSIXct("01/01/2021",format="%m/%d/%Y") & wbs$site=="wbs1" &wbs$plot==10,]
+wbs1_2019_plot10
+
+lookup<-data.frame(field_species=c("sdw","ssdw","s","artrw8","drve2","gl","pose","w","pssp6","r","sl","m","fl"),description=c("shrub dead wood; >.25 inch or .5cm","standing shrub dead wood; >.25 inch or .5cm","soil; <.25 inch or .5cm","Wyoming big sagebrush","drve2","graminoid litter","pose","wood > .25 inch or .5cm","pssp6","rock; >.25 inch or .5cm","shrub dead wood; <.25 inch or .5cm","moss","forb litter"))
+lookup
+
+#https://plantsorig.sc.egov.usda.gov/java/charProfile?symbol=ARTRW8
+#field_species
+
+
+
+#d	dung
+
+#POSE (small native bunchgrass)
+#Poa bluegrass
+
+wbs1_2019_plot10_sp<-merge(wbs1_2019_plot10,lookup,by.x="field_species",by.y="field_species")
+wbs1_2019_plot10_sp
+```
+
+```{r}
+rtk<-read.dbf("/Users/owner/Downloads/LTVR_LAI_RTK-corrected/LTVM_PointFrame_wDirection.dbf")
+rtk_wbsveg1<-rtk[rtk$NWRC_Ref=="wbsveg1",]
+rtk_wbsveg1
+```
+
