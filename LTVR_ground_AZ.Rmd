@@ -13,15 +13,13 @@ library("foreign")
 
 # read the data
 ```{r}
-#pf<-read.csv("C:/Users/taohuang/Desktop/rcew-ltvr-point-frame-export/export.csv")
-pf<-read.csv("export.csv")
+pf<-read.csv("C:/Users/taohuang/Desktop/rcew-ltvr-point-frame-export/export.csv")
 pf$growthform_ct<-1
 pf$field_species_ct<-1
 pf$Date<-as.POSIXct(pf$Date,format="%m/%d/%Y")
 pf
 ```
 
-# subset to WBS
 ```{r}
 wbs<-pf[grepl("wbs", pf$site),]
 table(wbs$site)
@@ -78,6 +76,7 @@ wbs3_all_2019_plot15
 
 ```{r}
 
+
 lookup<-data.frame(field_species=c("sdw","ssdw","s","artrw8","drve2","gl","pose","w","pssp6","r","sl","m","fl","phlo2", "ascu5", "elel5"),description=c("shrub dead wood; >.25 inch or .5cm","standing shrub dead wood; >.25 inch or .5cm","soil; <.25 inch or .5cm","Wyoming big sagebrush","drve2","graminoid litter","pose","wood > .25 inch or .5cm","pssp6","rock; >.25 inch or .5cm","shrub dead wood; <.25 inch or .5cm","moss","forb litter","Phlox longifolia", "Astragalus cusickii", "Elymus elymoides"))
 lookup
 
@@ -101,6 +100,12 @@ wbs3_all_2019_plot15_sp_rhem<-merge( wbs3_all_2019_plot15_sp,rhem_lookup,by.x="f
 wbs3_all_2019_plot15_sp_rhem
 ```
 
+```{r}
+0.12105263+0.03684211+0.02105263
+0.05789474+0.32105263
+0.02631579
+1-0.25-(0.02631579)
+```
 
 
 
