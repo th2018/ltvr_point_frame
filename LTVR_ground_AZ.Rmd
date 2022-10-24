@@ -49,7 +49,6 @@ dim(wbs3_r_m)
 ```
 
 
-
 # count field_species of wbs 1 (and 2)
 ```{r}
 
@@ -92,7 +91,7 @@ wbs1_all_2019_plot12
 
 ```{r}
 
-lookup<-data.frame(field_species=c("sdw","ssdw","s","artrw8","drve2","gl","pose","w","pssp6","r","sl","m","fl","phlo2", "ascu5", "elel5"),description=c("shrub dead wood; >.25 inch or .5cm","standing shrub dead wood; >.25 inch or .5cm","soil; <.25 inch or .5cm","Wyoming big sagebrush","Draba verna L.","graminoid litter","pose","wood > .25 inch or .5cm","pssp6","rock; >.25 inch or .5cm","shrub dead wood; <.25 inch or .5cm","moss","forb litter","Phlox longifolia", "Astragalus cusickii", "Elymus elymoides"))
+lookup<-data.frame(field_species=c("sdw","ssdw","s","artrw8","drve2","gl","pose","w","pssp6","r","sl","m","fl","phlo2", "ascu5", "elel5", "andi2","brte"),description=c("shrub dead wood; >.25 inch or .5cm","standing shrub dead wood; >.25 inch or .5cm","soil; <.25 inch or .5cm","Wyoming big sagebrush","Draba verna L.","graminoid litter","pose","wood > .25 inch or .5cm","pssp6","rock; >.25 inch or .5cm","shrub dead wood; <.25 inch or .5cm","moss","forb litter","Phlox longifolia", "Astragalus cusickii", "Elymus elymoides","Antennaria dimorpha", "Bromus tectorum"))
 lookup
 
 #https://plantsorig.sc.egov.usda.gov/java/charProfile?symbol=ARTRW8
@@ -111,7 +110,7 @@ wbs1_all_2019_plot12_sp
 
 
 ```{r}
-rhem_lookup<-data.frame( field_species =c("artrw8","elel5","gl","m","phlo2",   "pose", "s","sl", "ssdw", "drve2", "ascu5", "r", "sdw"),RHEM=c("Shrubs","Bunch Grass","Litter Cover %","Biological Crusts Cover","Forbs/Annuals", "Bunch Grass", "Bare", "Shrubs" , "Shrubs", "Forbs/Annuals", "Forbs/Annuals", "rock", "Shrubs"))
+rhem_lookup<-data.frame( field_species =c("artrw8","elel5","gl","m","phlo2",   "pose", "s","sl", "ssdw", "drve2", "ascu5", "r", "sdw", "andi2", "brte"),RHEM=c("Shrubs","Bunch Grass","Litter Cover %","Biological Crusts Cover","Forbs/Annuals", "Bunch Grass", "Bare", "Shrubs" , "Shrubs", "Forbs/Annuals", "Forbs/Annuals", "rock", "Shrubs", "Forbs/Annuals", "Forbs/Annuals"))
 rhem_lookup
 ```
 
@@ -136,7 +135,29 @@ Bunch
 crust  <-sum(wbs1_all_2019_plot12_sp_rhem[wbs1_all_2019_plot12_sp_rhem$RHEM=="Biological Crusts Cover",]$fraction)
 crust
 
+Bare <-sum(wbs1_all_2019_plot12_sp_rhem[wbs1_all_2019_plot12_sp_rhem$RHEM=="Bare",]$fraction)
+Bare
+
 ```
+
+```{r}
+wbs1_all_sp<-data.frame(table(wbs1_all$field_species))
+colnames(wbs1_all_sp)<-c("field_species","freq")
+wbs1_all_sp
+wbs1_all_sp_rhem<-merge( wbs1_all_sp,rhem_lookup,by.x="field_species",by.y="field_species")
+wbs1_all_sp_rhem
+
+wbs1_all_sp_rhem_group<-  wbs1_all_sp_rhem %>% group_by(RHEM) %>% summarise(sum=sum(freq))
+wbs1_all_sp_rhem_group
+
+```
+
+
+
+
+
+
+
 
 
 
