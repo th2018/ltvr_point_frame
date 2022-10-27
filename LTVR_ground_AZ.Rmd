@@ -39,6 +39,11 @@ wbs1<-wbs[wbs$site=="wbs1",]
 wbs1_r_m<-wbs1[wbs1$field_species %in% c("m","r"),]
 dim(wbs1_r_m)
 
+wbs1<-wbs[wbs$site=="wbs1",]
+wbs1_r_m_gl<-wbs1[wbs1$field_species %in% c("m","r","gl"),]
+dim(wbs1_r_m_gl)
+wbs1_r_m_gl[wbs1_r_m_gl$hit==1,]
+
 wbs2<-wbs[wbs$site=="wbs2",]
 wbs2_r_m<-wbs2[wbs2$field_species %in% c("m","r"),]
 dim(wbs2_r_m)
@@ -70,8 +75,29 @@ wbs1_all<-merge(wbs1_count,wbs1_plot,by=c("site","Date","plot") )
 wbs1_all$fraction<-wbs1_all$count/wbs1_all$total_count
 wbs1_all
 
-
 ```
+
+
+<!-- # count field_species of wbs 1 (hit==1) -->
+<!-- ```{r} -->
+
+
+
+<!-- wbs1_field_species<-wbs1[ wbs1$hit==1 ,c("site","Date","plot","field_species","field_species_ct")] -->
+
+<!-- wbs1_count<-wbs1_field_species %>%     -->
+<!--   group_by(site,Date,plot,field_species) %>% -->
+<!--    summarise(count=n()) -->
+
+<!-- wbs1_plot<-wbs1_field_species %>%     -->
+<!--   group_by(site,Date,plot) %>% -->
+<!--    summarise(total_count=n()) -->
+
+<!-- wbs1_all<-merge(wbs1_count,wbs1_plot,by=c("site","Date","plot") ) -->
+<!-- wbs1_all$fraction<-wbs1_all$count/wbs1_all$total_count -->
+<!-- wbs1_all -->
+<!-- wbs1_all[wbs1_all$fraction>0.1,] -->
+<!-- ``` -->
 
 
 # wbs1_all
@@ -100,13 +126,13 @@ wbs1_all_2019_plot31
 ```
 
 ```{r}
-wbs1_all_2019[wbs1_all_2019$count>12,]
+wbs1_all_2019[wbs1_all_2019$count>26,]
 ```
 
 
 ```{r}
 
-lookup<-data.frame(field_species=c("sdw","ssdw","s","artrw8","drve2","gl","pose","w","pssp6","r","sl","m","fl","phlo2", "ascu5", "elel5", "andi2","brte"),description=c("shrub dead wood; >.25 inch or .5cm","standing shrub dead wood; >.25 inch or .5cm","soil; <.25 inch or .5cm","Wyoming big sagebrush","Draba verna L.","graminoid litter","pose","wood > .25 inch or .5cm","Bluebunch Wheatgrass","rock; >.25 inch or .5cm","shrub dead wood; <.25 inch or .5cm","moss","forb litter","Phlox longifolia", "Astragalus cusickii", "Elymus elymoides","Antennaria dimorpha", "Bromus tectorum"))
+lookup<-data.frame(field_species=c("sdw","ssdw","s","artrw8","drve2","gl","pose","w","pssp6","r","sl","m","fl","phlo2", "ascu5", "elel5", "andi2","brte", "2fa" ),description=c("shrub dead wood; >.25 inch or .5cm","standing shrub dead wood; >.25 inch or .5cm","soil; <.25 inch or .5cm","Wyoming big sagebrush","Draba verna L.","graminoid litter","pose","wood > .25 inch or .5cm","Bluebunch Wheatgrass","rock; >.25 inch or .5cm","shrub dead wood; <.25 inch or .5cm","moss","forb litter","Phlox longifolia", "Astragalus cusickii", "Elymus elymoides","Antennaria dimorpha", "Bromus tectorum", "Forb, annual"))
 lookup
 
 #https://plantsorig.sc.egov.usda.gov/java/charProfile?symbol=ARTRW8
