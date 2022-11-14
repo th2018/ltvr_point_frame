@@ -21,6 +21,49 @@ pf$Date<-as.POSIXct(pf$Date,format="%m/%d/%Y")
 pf
 ```
 
+# to find the highest litter area, I have to calculate litter fraction of site-date-plot-hit1.
+```{r}
+# the column i need
+pf_field_species<-pf[,c("site","Date","plot","field_species","field_species_ct")]
+pf_field_species
+
+pf_count<- pf_field_species %>%    
+  group_by(site,Date,plot,field_species ) %>%
+   summarise(count=n())
+pf_count
+
+pf_count_l<-pf_count[pf_count$field_species %in% c("gl", "fl"),]
+
+pf_count_l_wbs<-pf_count_l[ grepl("wbs", pf_count_l$site) ,]
+pf_count_l_wbs
+summary(pf_count_l_wbs)
+
+pf_count_l_los<-pf_count_l[ grepl("los", pf_count_l$site) ,]
+pf_count_l_los
+summary(pf_count_l_los)
+
+```
+
+
+```{r}
+
+lookup<-data.frame(field_species=c("sdw","ssdw","s","artrw8","drve2","gl","pose","w","pssp6","r","sl","m","fl","phlo2", "ascu5", "elel5", "andi2","brte", "2fa" ),description=c("shrub dead wood; >.25 inch or .5cm","standing shrub dead wood; >.25 inch or .5cm","soil; <.25 inch or .5cm","Wyoming big sagebrush","Draba verna L.","graminoid litter","pose","wood > .25 inch or .5cm","Bluebunch Wheatgrass","rock; >.25 inch or .5cm","shrub dead wood; <.25 inch or .5cm","moss","forb litter","Phlox longifolia", "Astragalus cusickii", "Elymus elymoides","Antennaria dimorpha", "Bromus tectorum", "Forb, annual"))
+lookup
+
+#https://plantsorig.sc.egov.usda.gov/java/charProfile?symbol=ARTRW8
+#field_species
+#d	dung
+#POSE (small native bunchgrass)
+#Poa bluegrass
+
+```
+
+
+
+
+
+
+
 # subset to WBS
 ```{r}
 wbs<-pf[grepl("wbs", pf$site),]
@@ -129,19 +172,6 @@ wbs1_all_2019_plot31
 wbs1_all_2019[wbs1_all_2019$count>26,]
 ```
 
-
-```{r}
-
-lookup<-data.frame(field_species=c("sdw","ssdw","s","artrw8","drve2","gl","pose","w","pssp6","r","sl","m","fl","phlo2", "ascu5", "elel5", "andi2","brte", "2fa" ),description=c("shrub dead wood; >.25 inch or .5cm","standing shrub dead wood; >.25 inch or .5cm","soil; <.25 inch or .5cm","Wyoming big sagebrush","Draba verna L.","graminoid litter","pose","wood > .25 inch or .5cm","Bluebunch Wheatgrass","rock; >.25 inch or .5cm","shrub dead wood; <.25 inch or .5cm","moss","forb litter","Phlox longifolia", "Astragalus cusickii", "Elymus elymoides","Antennaria dimorpha", "Bromus tectorum", "Forb, annual"))
-lookup
-
-#https://plantsorig.sc.egov.usda.gov/java/charProfile?symbol=ARTRW8
-#field_species
-#d	dung
-#POSE (small native bunchgrass)
-#Poa bluegrass
-
-```
 
 
 ```{r}
