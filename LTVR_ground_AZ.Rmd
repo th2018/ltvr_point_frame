@@ -84,6 +84,12 @@ row1
 length(row1[row1$hit==1,]$pin)
 length(unique(row1$pin))
 
+row2<-pf[pf$site=="los1" & pf$Date> as.POSIXct("01/01/2019", format = "%m/%d/%Y") & pf$Date < as.POSIXct("01/01/2020", format = "%m/%d/%Y")  & pf$plot==24 & pf$row==2,]
+row2
+
+row3<-pf[pf$site=="los1" & pf$Date> as.POSIXct("01/01/2019", format = "%m/%d/%Y") & pf$Date < as.POSIXct("01/01/2020", format = "%m/%d/%Y")  & pf$plot==24 & pf$row==3,]
+row3
+
 ```
 
 
