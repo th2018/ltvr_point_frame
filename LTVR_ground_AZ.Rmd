@@ -51,11 +51,23 @@ pf_count_l_los1_2019[order(pf_count_l_los1_2019$count),]
 pf_count_los1_plot7_2019<- pf_count[pf_count$site=="los1" & pf_count$Date> as.POSIXct("01/01/2019", format = "%m/%d/%Y") & pf_count$Date < as.POSIXct("01/01/2020", format = "%m/%d/%Y")  &pf_count$plot==7,]
 pf_count_los1_plot7_2019$species_fraction<-pf_count_los1_plot7_2019$count/sum(pf_count_los1_plot7_2019$count)
 pf_count_los1_plot7_2019
+
+pf_count_los1_plot9_2019<- pf_count[pf_count$site=="los1" & pf_count$Date> as.POSIXct("01/01/2019", format = "%m/%d/%Y") & pf_count$Date < as.POSIXct("01/01/2020", format = "%m/%d/%Y")  &pf_count$plot==9,]
+pf_count_los1_plot9_2019$species_fraction<-pf_count_los1_plot9_2019$count/sum(pf_count_los1_plot9_2019$count)
+pf_count_los1_plot9_2019
+
+pf_count_los1_plot16_2019<- pf_count[pf_count$site=="los1" & pf_count$Date> as.POSIXct("01/01/2019", format = "%m/%d/%Y") & pf_count$Date < as.POSIXct("01/01/2020", format = "%m/%d/%Y")  &pf_count$plot==16,]
+pf_count_los1_plot16_2019$species_fraction<-pf_count_los1_plot16_2019$count/sum(pf_count_los1_plot16_2019$count)
+pf_count_los1_plot16_2019
+
+pf_count_los1_plot24_2019<- pf_count[pf_count$site=="los1" & pf_count$Date> as.POSIXct("01/01/2019", format = "%m/%d/%Y") & pf_count$Date < as.POSIXct("01/01/2020", format = "%m/%d/%Y")  &pf_count$plot==24,]
+pf_count_los1_plot24_2019$species_fraction<-pf_count_los1_plot24_2019$count/sum(pf_count_los1_plot24_2019$count)
+pf_count_los1_plot24_2019
 ```
 
 ```{r}
 
-lookup<-data.frame(field_species=c("sdw","ssdw","s","artrw8","drve2","gl","pose","w","pssp6","r","sl","m","fl","phlo2", "ascu5", "elel5", "andi2","brte", "2fa", "luca", "asfi" ),description=c("shrub dead wood; >.25 inch or .5cm","standing shrub dead wood; >.25 inch or .5cm","soil; <.25 inch or .5cm","Wyoming big sagebrush","Draba verna L.","graminoid litter","pose","wood > .25 inch or .5cm","Bluebunch Wheatgrass","rock; >.25 inch or .5cm","shrub dead wood; <.25 inch or .5cm","moss","forb litter","Phlox longifolia", "Astragalus cusickii", "Elymus elymoides","Antennaria dimorpha", "Bromus tectorum", "Forb, annual", "Lupinus caudatus Kellogg", "basalt milkvetch"))
+lookup<-data.frame(field_species=c("sdw","ssdw","s","artrw8","drve2","gl","pose","w","pssp6","r","sl","m","fl","phlo2", "ascu5", "elel5", "andi2","brte", "2fa", "luca", "asfi", "arar8" ),description=c("shrub dead wood; >.25 inch or .5cm","standing shrub dead wood; >.25 inch or .5cm","soil; <.25 inch or .5cm","Wyoming big sagebrush","Draba verna L.","graminoid litter","pose","wood > .25 inch or .5cm","Bluebunch Wheatgrass","rock; >.25 inch or .5cm","shrub dead wood; <.25 inch or .5cm","moss","forb litter","Phlox longifolia", "Astragalus cusickii", "Elymus elymoides (squirreltail)","Antennaria dimorpha", "Bromus tectorum", "Forb, annual", "Lupinus caudatus Kellogg", "basalt milkvetch", "little sagebrush"))
 lookup
 
 #https://plantsorig.sc.egov.usda.gov/java/charProfile?symbol=ARTRW8
