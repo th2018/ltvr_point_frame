@@ -66,6 +66,30 @@ pf_count_los1_plot24_2019
 ```
 
 ```{r}
+pf[pf$site=="los1" & pf$Date> as.POSIXct("01/01/2019", format = "%m/%d/%Y") & pf$Date < as.POSIXct("01/01/2020", format = "%m/%d/%Y")  & pf$plot==24 & pf$row==1 & pf$field_category %in% c("s", "r", "gl" ),]
+
+pf[pf$site=="los1" & pf$Date> as.POSIXct("01/01/2019", format = "%m/%d/%Y") & pf$Date < as.POSIXct("01/01/2020", format = "%m/%d/%Y")  & pf$plot==24 & pf$row==2 & pf$field_category %in% c("s", "r", "gl" ),]
+
+pf[pf$site=="los1" & pf$Date> as.POSIXct("01/01/2019", format = "%m/%d/%Y") & pf$Date < as.POSIXct("01/01/2020", format = "%m/%d/%Y")  & pf$plot==24 & pf$row==3 & pf$field_category %in% c("s", "r", "gl" ),]
+
+pf[pf$site=="los1" & pf$Date> as.POSIXct("01/01/2019", format = "%m/%d/%Y") & pf$Date < as.POSIXct("01/01/2020", format = "%m/%d/%Y")  & pf$plot==24 & pf$row==4 & pf$field_category %in% c("s", "r", "gl" ),]
+
+pf[pf$site=="los1" & pf$Date> as.POSIXct("01/01/2019", format = "%m/%d/%Y") & pf$Date < as.POSIXct("01/01/2020", format = "%m/%d/%Y")  & pf$plot==24 & pf$row==5 & pf$field_category %in% c("s", "r", "gl" ),]
+
+```
+
+```{r}
+row1<-pf[pf$site=="los1" & pf$Date> as.POSIXct("01/01/2019", format = "%m/%d/%Y") & pf$Date < as.POSIXct("01/01/2020", format = "%m/%d/%Y")  & pf$plot==24 & pf$row==1,]
+row1
+length(row1[row1$hit==1,]$pin)
+length(unique(row1$pin))
+
+```
+
+
+
+
+```{r}
 
 lookup<-data.frame(field_species=c("sdw","ssdw","s","artrw8","drve2","gl","pose","w","pssp6","r","sl","m","fl","phlo2", "ascu5", "elel5", "andi2","brte", "2fa", "luca", "asfi", "arar8" ),description=c("shrub dead wood; >.25 inch or .5cm","standing shrub dead wood; >.25 inch or .5cm","soil; <.25 inch or .5cm","Wyoming big sagebrush","Draba verna L.","graminoid litter","pose","wood > .25 inch or .5cm","Bluebunch Wheatgrass","rock; >.25 inch or .5cm","shrub dead wood; <.25 inch or .5cm","moss","forb litter","Phlox longifolia", "Astragalus cusickii", "Elymus elymoides (squirreltail)","Antennaria dimorpha", "Bromus tectorum", "Forb, annual", "Lupinus caudatus Kellogg", "basalt milkvetch", "little sagebrush"))
 lookup
