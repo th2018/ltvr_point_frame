@@ -21,6 +21,12 @@ pf$Date<-as.POSIXct(pf$Date,format="%m/%d/%Y")
 pf
 ```
 
+# the highest number of each site-date-plot-pin
+```{r}
+
+```
+
+
 # to find the highest litter area, I have to calculate litter fraction of site-date-plot-hit1.
 ```{r}
 # the column i need
