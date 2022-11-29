@@ -13,16 +13,21 @@ library("foreign")
 
 # read the point frame data
 ```{r}
-#pf<-read.csv("C:/Users/taohuang/Desktop/rcew-ltvr-point-frame-export/export.csv")
-pf<-read.csv("/Users/owner/Downloads/rcew-ltvr-point-frame-export 2/export.csv")
+pf<-read.csv("C:/Users/taohuang/Desktop/rcew-ltvr-point-frame-export/export.csv")
+#pf<-read.csv("/Users/owner/Downloads/rcew-ltvr-point-frame-export 2/export.csv")
 pf$growthform_ct<-1
 pf$field_species_ct<-1
 pf$Date<-as.POSIXct(pf$Date,format="%m/%d/%Y")
 pf
 ```
 
-# the highest number of each site-date-plot-pin
+# the highest number of each site-date-plot-pin will be the top (which the drone can see)
 ```{r}
+
+pf_top <- pf %>%    
+  group_by(site,Date,plot,pin ) %>%
+   summarise(top=max(hit) )
+pf_top
 
 ```
 
