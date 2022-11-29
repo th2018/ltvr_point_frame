@@ -27,7 +27,14 @@ pf
 pf_top <- pf %>%    
   group_by(site,Date,plot,pin ) %>%
    summarise(top=max(hit) )
-pf_top
+
+pf_top_sp<-merge( pf,  pf_top, by.x=c( "site","Date","plot","pin","hit"), by.y=c( "site","Date","plot","pin","top" ))
+pf_top_sp
+
+# why row(pf_top_sp) didn't match row(pf_top)
+
+head(pf_top)
+head(pf_top_sp)
 
 ```
 
