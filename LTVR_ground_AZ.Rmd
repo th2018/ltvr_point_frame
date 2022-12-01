@@ -6,7 +6,7 @@ output: html_document
 ---
 
 # Load packages
-```{r}
+```{r message = FALSE}
 library("dplyr")
 library("foreign")
 ```
@@ -23,7 +23,6 @@ pf
 
 # the highest number of each site-date-plot-pin will be the top (which the drone can see)
 ```{r}
-
 pf_top <- pf %>%    
   group_by(site,Date,plot,pin ) %>%
    summarise(top=max(hit) )
@@ -37,6 +36,24 @@ head(pf_top)
 head(pf_top_sp)
 
 ```
+
+# to find the highest litter area of los1
+```{r}
+pf_top_sp_count<-  pf_top_sp  %>%    
+  group_by(site,Date,plot,field_species ) %>%
+   summarise(count=n())
+
+pf_top_sp_count_los1_2019<-pf_top_sp_count[ pf_top_sp_count$site=="los1" & ,]
+
+```
+
+
+
+
+
+
+
+
 
 
 # to find the highest litter area, I have to calculate litter fraction of site-date-plot-hit1.
