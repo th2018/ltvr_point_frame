@@ -21,13 +21,13 @@ pf$Date<-as.POSIXct(pf$Date,format="%m/%d/%Y")
 pf
 ```
 
-# the highest number of each site-date-plot-pin will be the top (which the drone can see)
+# the highest number of each site-date-plot-row-pin will be the top (which the drone can see)
 ```{r}
 pf_top <- pf %>%    
-  group_by(site,Date,plot,pin ) %>%
+  group_by(site,Date,plot,row,pin ) %>%
    summarise(top=max(hit) )
 
-pf_top_sp<-merge( pf,  pf_top, by.x=c( "site","Date","plot","pin","hit"), by.y=c( "site","Date","plot","pin","top" ))
+pf_top_sp<-merge( pf,  pf_top, by.x=c( "site","Date","plot","pin","row","hit"), by.y=c( "site","Date","plot","pin","row","top" ))
 pf_top_sp
 
 # why row(pf_top_sp) didn't match row(pf_top)
@@ -43,8 +43,11 @@ pf_top_sp_count<-  pf_top_sp  %>%
   group_by(site,Date,plot,field_species ) %>%
    summarise(count=n())
 
-pf_top_sp_count_los1_2019<-pf_top_sp_count[ pf_top_sp_count$site=="los1" & ,]
-
+pf_top_sp_count_los1_2019<-pf_top_sp_count[ pf_top_sp_count$site=="los1" & as.numeric(format( pf_top_sp_count$Date , "%Y"))==2019 ,]
+pf_top_sp_count_los1_2019_plot7<- pf_top_sp_count_los1_2019[ pf_top_sp_count_los1_2019$plot==7,]
+pf_top_sp_count_los1_2019_plot7
+pf[pf$site== "los1" & as.numeric(format( pf$Date , "%Y"))==2019 & pf$plot==7 &pf$pin==19 ,]
+pf_top[ pf_top$site== "los1" & as.numeric(format( pf_top$Date , "%Y"))==2019 & pf_top$plot==7 & pf_top$pin==19   ,]
 ```
 
 
