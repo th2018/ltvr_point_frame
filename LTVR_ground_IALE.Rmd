@@ -21,6 +21,17 @@ pf$Date<-as.POSIXct(pf$Date,format="%m/%d/%Y")
 pf
 ```
 
+```{r}
+site<-"wbs1"
+year<-2019
+plot<- 22
+
+pf_site_year_plot<- pf[ pf$plot== plot & pf$site==site & as.numeric(format( pf$Date , "%Y"))==year ,]
+pf_site_year_plot
+
+```
+
+
 # the highest number of each site-date-plot-row-pin will be the top (which the drone can see)
 ```{r}
 pf_top <- pf %>%    
@@ -54,7 +65,8 @@ pf_top_sp_count_site_year_s<-pf_top_sp_count_site_year[ pf_top_sp_count_site_yea
 pf_top_sp_count_site_year_s[order( pf_top_sp_count_site_year_s$count, decreasing = TRUE),]
 
 pf_top_sp_count_site_year_plot<- pf_top_sp_count_site_year[ pf_top_sp_count_site_year$plot== plot,]
-pf_top_sp_count_site_year_plot
+pf_top_sp_count_site_year_plot[order( pf_top_sp_count_site_year_plot$count, decreasing = TRUE),]
+
 #pf[pf$site== site & as.numeric(format( pf$Date , "%Y"))==year & pf$plot==7 &pf$pin==19 ,]
 #pf_top[ pf_top$site== site & as.numeric(format( pf_top$Date , "%Y"))==year & pf_top$plot==7 & pf_top$pin==19   ,]
 ```
@@ -144,7 +156,7 @@ row3
 
 ```{r}
 
-lookup<-data.frame(field_species=c("sdw","ssdw","s","artrw8","drve2","gl","pose","w","pssp6","r","sl","m","fl","phlo2", "ascu5", "elel5", "andi2","brte", "2fa", "luca", "asfi", "arar8" ),description=c("shrub dead wood; >.25 inch or .5cm","standing shrub dead wood; >.25 inch or .5cm","soil; <.25 inch or .5cm","Wyoming big sagebrush","Draba verna L.","graminoid litter","pose","wood > .25 inch or .5cm","Bluebunch Wheatgrass","rock; >.25 inch or .5cm","shrub dead wood; <.25 inch or .5cm","moss","forb litter","Phlox longifolia", "Astragalus cusickii", "Elymus elymoides (squirreltail)","Antennaria dimorpha", "Bromus tectorum", "Forb, annual", "Lupinus caudatus Kellogg", "basalt milkvetch", "little sagebrush"))
+lookup<-data.frame(field_species=c("sdw","ssdw","s","artrw8","drve2","gl","pose","w","pssp6","r","sl","m","fl","phlo2", "ascu5", "elel5", "andi2","brte", "2fa", "luca", "asfi", "arar8", "aspu9" ),description=c("shrub dead wood; >.25 inch or .5cm","standing shrub dead wood; >.25 inch or .5cm","soil; <.25 inch or .5cm","Wyoming big sagebrush","Draba verna L.","graminoid litter","pose (bluegrass)","wood > .25 inch or .5cm","Bluebunch Wheatgrass","rock; >.25 inch or .5cm","shrub dead wood; <.25 inch or .5cm","moss","forb litter","Phlox longifolia", "Astragalus cusickii", "Elymus elymoides (squirreltail)","Antennaria dimorpha", "Bromus tectorum", "Forb, annual", "Lupinus caudatus Kellogg", "basalt milkvetch", "little sagebrush", "woollypod milkvetch"))
 lookup
 
 #https://plantsorig.sc.egov.usda.gov/java/charProfile?symbol=ARTRW8
