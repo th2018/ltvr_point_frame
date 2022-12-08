@@ -39,7 +39,7 @@ head(pf_top_sp)
 ```{r}
 site<-"wbs1"
 year<-2019
-plot<-7
+plot<- 22
    
 pf_top_sp_count<-  pf_top_sp  %>%    
   group_by(site,Date,plot,field_species ) %>%
@@ -50,7 +50,8 @@ pf_top_sp_count_site_year<-pf_top_sp_count[ pf_top_sp_count$site==site & as.nume
 pf_top_sp_count_site_year
 
 #plot soil count
-pf_top_sp_count_site_year[ pf_top_sp_count_site_year$field_species=="s",]
+pf_top_sp_count_site_year_s<-pf_top_sp_count_site_year[ pf_top_sp_count_site_year$field_species=="s" ,]
+pf_top_sp_count_site_year_s[order( pf_top_sp_count_site_year_s$count, decreasing = TRUE),]
 
 pf_top_sp_count_site_year_plot<- pf_top_sp_count_site_year[ pf_top_sp_count_site_year$plot== plot,]
 pf_top_sp_count_site_year_plot
