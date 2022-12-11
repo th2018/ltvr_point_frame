@@ -19,12 +19,13 @@ pf$growthform_ct<-1
 pf$field_species_ct<-1
 pf$Date<-as.POSIXct(pf$Date,format="%m/%d/%Y")
 pf
+save(pf, file="pf.Rdata")
 ```
 
 ```{r}
 site<-"wbs1"
 year<-2019
-plot<- 22
+plot<- 19
 
 pf_site_year_plot<- pf[ pf$plot== plot & pf$site==site & as.numeric(format( pf$Date , "%Y"))==year ,]
 pf_site_year_plot
@@ -50,7 +51,7 @@ head(pf_top_sp)
 ```{r}
 site<-"wbs1"
 year<-2019
-plot<- 22
+plot<- 19
    
 pf_top_sp_count<-  pf_top_sp  %>%    
   group_by(site,Date,plot,field_species ) %>%
@@ -66,7 +67,7 @@ pf_top_sp_count_site_year_s[order( pf_top_sp_count_site_year_s$count, decreasing
 
 pf_top_sp_count_site_year_plot<- pf_top_sp_count_site_year[ pf_top_sp_count_site_year$plot== plot,]
 pf_top_sp_count_site_year_plot[order( pf_top_sp_count_site_year_plot$count, decreasing = TRUE),]
-
+write.csv(pf_top_sp_count_site_year_plot[order( pf_top_sp_count_site_year_plot$count, decreasing = TRUE),], file="pf_top_sp_count_site_year_plot.csv")
 #pf[pf$site== site & as.numeric(format( pf$Date , "%Y"))==year & pf$plot==7 &pf$pin==19 ,]
 #pf_top[ pf_top$site== site & as.numeric(format( pf_top$Date , "%Y"))==year & pf_top$plot==7 & pf_top$pin==19   ,]
 ```
