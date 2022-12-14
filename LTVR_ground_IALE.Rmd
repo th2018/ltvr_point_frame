@@ -47,12 +47,13 @@ head(pf_top_sp)
 
 ```
 
-# to find the highest soil (s) plot of WBS1_2019
+# to find the highest yy plot of xx1_2019
 ```{r}
 site<-"wbs1"
 year<-2019
-plot<- 19
-   
+plot<- 11
+field_species<-c("gl", "fl", "sl") #graminoid litter, forb litter, shrub dead wood; <.25 inch or .5cm
+
 pf_top_sp_count<-  pf_top_sp  %>%    
   group_by(site,Date,plot,field_species ) %>%
    summarise(count=n())
@@ -62,7 +63,7 @@ pf_top_sp_count_site_year<-pf_top_sp_count[ pf_top_sp_count$site==site & as.nume
 pf_top_sp_count_site_year
 
 #plot soil count
-pf_top_sp_count_site_year_s<-pf_top_sp_count_site_year[ pf_top_sp_count_site_year$field_species=="s" ,]
+pf_top_sp_count_site_year_s<-pf_top_sp_count_site_year[ pf_top_sp_count_site_year$field_species %in% field_species ,]
 pf_top_sp_count_site_year_s[order( pf_top_sp_count_site_year_s$count, decreasing = TRUE),]
 
 pf_top_sp_count_site_year_plot<- pf_top_sp_count_site_year[ pf_top_sp_count_site_year$plot== plot,]
